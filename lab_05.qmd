@@ -68,7 +68,12 @@ In this task we look at what that throws away.
 - [ ] In Task 1, we used `inner_join` to find which character and location pairs have the most lines. Was that the right choice?
 
 ::: {.solution}
-
+```{r}
+inner_sl <- inner_join(simpsons_script_lines, simpsons_locations, by=c("location_id" = "id"))
+inner_sl
+left_sl <- left_join(simpsons_script_lines, simpsons_locations, by=c("location_id" = "id"))
+left_sl
+```
 :::
 
 ### Task 2: String Processing
@@ -81,7 +86,10 @@ Answer the following research questions:
 - [ ] In how many episodes are donuts / doughnuts mentioned? (Hint: be careful about capitalisation.)
 
 ::: {.solution}
+```{r}
+simpsons_script_lines |> arrange(desc(str_length(spoken_words)))
 
+```
 :::
 
 ### Task 3a: Parsing Dates
@@ -106,7 +114,18 @@ first_episodes
 - [ ] `excel_date` contains the same dates stored as Excel date numbers. Convert these into dates too. (Hint: see the Week 5 notes.)
 
 ::: {.solution}
+```{r}
+ukdate <- dmy(first_episodes$uk_date)
+usdate <- mdy(first_episodes$us_date)
+longdate <- mdy(first_episodes$long_date)
+ukdate
+usdate
+longdate
 
+
+excel_numeric_to_date(first_episodes$excel_date)
+exceldate
+```
 :::
 
 ### Task 3b: Date Processing
@@ -133,7 +152,11 @@ It has the following columns:
 - [ ] The column names are not consistently formatted: one of them starts with a capital letter. Use `clean_names` to fix this, and check the new column names.
 
 ::: {.solution}
+```{r}
 
+
+
+```
 :::
 
 Answer the following research questions:
