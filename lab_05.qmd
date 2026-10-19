@@ -23,13 +23,23 @@ Note that some columns have been dropped from `simpsons_script_lines` to make th
 - [ ] Load all four of the files
 
 ::: {.solution}
-
+```{r}
+simpsons_characters <- read_csv("data/simpsons/simpsons_characters.csv")
+simpsons_episodes <- read_csv("data/simpsons/simpsons_episodes.csv")
+simpsons_locations <- read_csv("data/simpsons/simpsons_locations.csv")
+simpsons_script_lines <- read_csv("data/simpsons/simpsons_script_lines.csv")
+```
 :::
 
 - [ ] Before joining anything, look at the first few rows of each table. What does one row of each table represent? Which columns link the tables together, and would you describe each link as one-to-one, one-to-many or many-to-many?
 
 ::: {.solution}
-
+```{r}
+simpsons_characters |> head()
+simpsons_episodes |> head()
+simpsons_locations |> head()
+simpsons_script_lines |> head()
+```
 :::
 
 
@@ -40,7 +50,11 @@ Answer the following research questions using `join` functions.
 - [ ] Which episodes feature the most characters? (Hint: look at the `n_distinct` function. Is every script line spoken by a character?)
 
 ::: {.solution}
-
+```{r}
+location_lines <- inner_join(simpsons_script_lines, simpsons_locations, by=c("location_id" = "id"))
+location_lines_characters <- inner_join(location_lines, simpsons_characters, by=c("character_id" = "id"))
+location_lines_characters |> head()
+```
 :::
 
 ### Task 1b: Choosing a Join
